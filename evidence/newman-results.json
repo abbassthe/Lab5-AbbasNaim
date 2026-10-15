@@ -1,0 +1,3570 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "01d7e1ae-383d-4804-b6b2-53a95eda8f57"
+    },
+    "item": [
+      {
+        "id": "8738b6ec-d50c-480a-a986-d993db491d29",
+        "name": "01 Add user",
+        "request": {
+          "description": {
+            "content": "Create a fictional user and save the generated ID.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "add"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0102\",\n  \"address\": \"Hamra, Beirut\",\n  \"country\": \"Lebanon\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "97a2782a-3626-4bb9-98c8-5642cf2c88f7",
+            "name": "201 CREATED",
+            "originalRequest": {
+              "description": {
+                "content": "Create a fictional user and save the generated ID.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users",
+                  "add"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "POST",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0102\",\n  \"address\": \"Hamra, Beirut\",\n  \"country\": \"Lebanon\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "status": "CREATED",
+            "code": 201,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0102\",\"user_id\":2}\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "36a5d60f-8f6c-4f6e-a157-be09d7d0f5a5",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"User ID is generated\", () => pm.expect(responseData.user_id).to.be.a(\"number\"));",
+                "pm.test(\"Created name matches\", () => pm.expect(responseData.name).to.eql(\"Omar Saleh\"));",
+                "pm.environment.set(\"user_id\", responseData.user_id);"
+              ],
+              "_lastExecutionId": "af17c0e6-017a-4ea3-8222-563cbb9f8f94"
+            }
+          }
+        ]
+      },
+      {
+        "id": "78f8316c-5446-439b-80c6-c121a70ef0fd",
+        "name": "02 Get all users",
+        "request": {
+          "description": {
+            "content": "List users after adding the test record.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "5afbafc8-2027-4738-98c3-f176fc953d1d",
+            "name": "200 OK",
+            "originalRequest": {
+              "description": {
+                "content": "List users after adding the test record.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "status": "OK",
+            "code": 200,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "[{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"maya@example.com\",\"name\":\"Maya Haddad\",\"phone\":\"01-555-0101\",\"user_id\":1},{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0102\",\"user_id\":2}]\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "3519f5cd-94ba-4eb4-b0cd-3d7658448b72",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"Response is an array\", () => pm.expect(responseData).to.be.an(\"array\"));",
+                "pm.test(\"New user is listed\", () => pm.expect(responseData.some(u => u.user_id === Number(pm.environment.get(\"user_id\")))).to.be.true);"
+              ],
+              "_lastExecutionId": "0832510b-2844-4a39-90b1-d59f09c39ab0"
+            }
+          }
+        ]
+      },
+      {
+        "id": "f5937981-6947-4f64-9c81-3adbf3a7c63f",
+        "name": "03 Get one user",
+        "request": {
+          "description": {
+            "content": "Read the new user using the environment ID.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "{{user_id}}"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "7ca7e07c-7379-47c4-b80c-5141bce452f4",
+            "name": "200 OK",
+            "originalRequest": {
+              "description": {
+                "content": "Read the new user using the environment ID.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users",
+                  "{{user_id}}"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "status": "OK",
+            "code": 200,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0102\",\"user_id\":2}\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "0030e715-715c-4a4f-8806-19144f1a54ac",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"Correct user returned\", () => pm.expect(responseData.user_id).to.eql(Number(pm.environment.get(\"user_id\"))));"
+              ],
+              "_lastExecutionId": "5aeb205f-b342-4871-a323-76208a2b0860"
+            }
+          }
+        ]
+      },
+      {
+        "id": "e126734f-29e0-40fb-a675-f90655a9ceda",
+        "name": "04 Update user",
+        "request": {
+          "description": {
+            "content": "Update the phone number and address.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "update"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0120\",\n  \"address\": \"Achrafieh, Beirut\",\n  \"country\": \"Lebanon\",\n  \"user_id\": {{user_id}}\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "47040966-58e9-4c64-9be4-f65bf9d50c6e",
+            "name": "200 OK",
+            "originalRequest": {
+              "description": {
+                "content": "Update the phone number and address.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users",
+                  "update"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "method": "PUT",
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0120\",\n  \"address\": \"Achrafieh, Beirut\",\n  \"country\": \"Lebanon\",\n  \"user_id\": {{user_id}}\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              }
+            },
+            "status": "OK",
+            "code": 200,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "{\"address\":\"Achrafieh, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0120\",\"user_id\":2}\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "b928a1cb-dfaf-4c1c-9d01-ff509d047755",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"Address updated\", () => pm.expect(responseData.address).to.eql(\"Achrafieh, Beirut\"));",
+                "pm.test(\"Phone updated\", () => pm.expect(responseData.phone).to.eql(\"01-555-0120\"));"
+              ],
+              "_lastExecutionId": "1a369eb0-60e3-4364-9eaf-060eb544c49c"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cd4f4539-d861-47bc-b491-26a002920d1d",
+        "name": "05 Check saved update",
+        "request": {
+          "description": {
+            "content": "Read again to verify the changes were saved in SQLite.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "{{user_id}}"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "ed247c9d-654c-4a07-8fde-b0e16b0a2bcf",
+            "name": "200 OK",
+            "originalRequest": {
+              "description": {
+                "content": "Read again to verify the changes were saved in SQLite.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users",
+                  "{{user_id}}"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "status": "OK",
+            "code": 200,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "{\"address\":\"Achrafieh, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0120\",\"user_id\":2}\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "b0556fb0-ef04-4158-9943-2233697a3fb7",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"Update persisted\", () => pm.expect(responseData.address).to.eql(\"Achrafieh, Beirut\"));"
+              ],
+              "_lastExecutionId": "b093f849-6f58-4d8d-8105-d17a917afb49"
+            }
+          }
+        ]
+      },
+      {
+        "id": "db19faf1-811c-4112-a126-daae1b0d9256",
+        "name": "06 Delete user",
+        "request": {
+          "description": {
+            "content": "Delete only the record created by this collection run.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "delete",
+              "{{user_id}}"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "DELETE"
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "55630387-31d0-499c-8857-084dbab16560",
+            "name": "200 OK",
+            "originalRequest": {
+              "description": {
+                "content": "Delete only the record created by this collection run.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users",
+                  "delete",
+                  "{{user_id}}"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "DELETE"
+            },
+            "status": "OK",
+            "code": 200,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "{\"status\":\"User deleted successfully\"}\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "c5a37906-2730-4aba-93c3-89094d12c116",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"Deletion confirmed\", () => pm.expect(responseData.status).to.eql(\"User deleted successfully\"));"
+              ],
+              "_lastExecutionId": "47886973-1c6b-4600-b986-efe9f8231bea"
+            }
+          }
+        ]
+      },
+      {
+        "id": "0fea7067-e222-4c98-a37f-a14639a83cb7",
+        "name": "07 Check deleted user",
+        "request": {
+          "description": {
+            "content": "Verify that the deleted record is no longer available.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users",
+              "{{user_id}}"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "eaa5dd9b-fbd4-4fbe-b85a-747c1785364a",
+            "name": "404 NOT FOUND",
+            "originalRequest": {
+              "description": {
+                "content": "Verify that the deleted record is no longer available.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users",
+                  "{{user_id}}"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "status": "NOT FOUND",
+            "code": 404,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "{\"error\":\"User not found.\"}\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "17099896-8d37-44b4-8564-9827ba799c87",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"Missing user message\", () => pm.expect(responseData.error).to.eql(\"User not found.\"));"
+              ],
+              "_lastExecutionId": "36a0fbd2-ea61-4c9e-965b-ce2a4375f99d"
+            }
+          }
+        ]
+      },
+      {
+        "id": "b031931c-e863-493e-8fea-56e3d5e5ad4b",
+        "name": "08 Get users after deletion",
+        "request": {
+          "description": {
+            "content": "Confirm that the deleted ID is absent and other records remain.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [
+          {
+            "_": {
+              "postman_previewlanguage": "json"
+            },
+            "id": "e5471153-ca65-47e4-9d6e-49f4ee34f796",
+            "name": "200 OK",
+            "originalRequest": {
+              "description": {
+                "content": "Confirm that the deleted ID is absent and other records remain.",
+                "type": "text/plain"
+              },
+              "url": {
+                "path": [
+                  "api",
+                  "users"
+                ],
+                "host": [
+                  "{{base_url}}"
+                ],
+                "query": [],
+                "variable": []
+              },
+              "method": "GET"
+            },
+            "status": "OK",
+            "code": 200,
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ],
+            "body": "[{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"maya@example.com\",\"name\":\"Maya Haddad\",\"phone\":\"01-555-0101\",\"user_id\":1}]\n",
+            "cookie": []
+          }
+        ],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "45b3c16d-122c-4196-8f6e-aa60652ec5b9",
+              "type": "text/javascript",
+              "exec": [
+                "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                "const responseData = pm.response.json();",
+                "pm.test(\"Deleted user is absent\", () => pm.expect(responseData.some(u => u.user_id === Number(pm.environment.get(\"user_id\")))).to.be.false);"
+              ],
+              "_lastExecutionId": "d5d99261-7e4a-4c0d-8792-fc9a58e66e84"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "01d7e1ae-383d-4804-b6b2-53a95eda8f57",
+      "name": "Flask user app",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "Abbas Naim — Lab 5. Run requests in order with the Flask local environment selected. Each example contains a response captured from the running Flask API.",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment"
+    },
+    "id": "296c7571-2c1b-49d2-8d52-d41a858a388a",
+    "name": "Flask local",
+    "values": [
+      {
+        "type": "any",
+        "value": "http://127.0.0.1:5001",
+        "key": "base_url"
+      },
+      {
+        "type": "any",
+        "value": 2,
+        "key": "user_id"
+      }
+    ]
+  },
+  "globals": {
+    "id": "7a131bfa-e22d-47dd-a56a-7bf41849d433",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 27,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 8,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 6.5,
+      "responseMin": 2,
+      "responseMax": 35,
+      "responseSd": 10.78192932642391,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1792097381376,
+      "completed": 1792097381533
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 8,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "b9ae8546-4076-4ce8-974f-6b8132ccce6b",
+          "httpRequestId": "cbd5a5f3-556b-496e-8341-bdf21c83ff46"
+        },
+        "item": {
+          "id": "8738b6ec-d50c-480a-a986-d993db491d29",
+          "name": "01 Add user",
+          "request": {
+            "description": {
+              "content": "Create a fictional user and save the generated ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "add"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0102\",\n  \"address\": \"Hamra, Beirut\",\n  \"country\": \"Lebanon\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "97a2782a-3626-4bb9-98c8-5642cf2c88f7",
+              "name": "201 CREATED",
+              "originalRequest": {
+                "description": {
+                  "content": "Create a fictional user and save the generated ID.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users",
+                    "add"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0102\",\n  \"address\": \"Hamra, Beirut\",\n  \"country\": \"Lebanon\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "CREATED",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0102\",\"user_id\":2}\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "36a5d60f-8f6c-4f6e-a157-be09d7d0f5a5",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"User ID is generated\", () => pm.expect(responseData.user_id).to.be.a(\"number\"));",
+                  "pm.test(\"Created name matches\", () => pm.expect(responseData.name).to.eql(\"Omar Saleh\"));",
+                  "pm.environment.set(\"user_id\", responseData.user_id);"
+                ],
+                "_lastExecutionId": "af17c0e6-017a-4ea3-8222-563cbb9f8f94"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Create a fictional user and save the generated ID.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users",
+              "add"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "4668f5a3-8bee-4e4c-b3b4-b7dc7875255b",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "137",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0102\",\n  \"address\": \"Hamra, Beirut\",\n  \"country\": \"Lebanon\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "c8b8fcee-bf4a-4f3f-bcdd-07c5a584ef3e",
+          "status": "CREATED",
+          "code": 201,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "129"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              72,
+              97,
+              109,
+              114,
+              97,
+              44,
+              32,
+              66,
+              101,
+              105,
+              114,
+              117,
+              116,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              76,
+              101,
+              98,
+              97,
+              110,
+              111,
+              110,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              111,
+              109,
+              97,
+              114,
+              64,
+              101,
+              120,
+              97,
+              109,
+              112,
+              108,
+              101,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              109,
+              97,
+              114,
+              32,
+              83,
+              97,
+              108,
+              101,
+              104,
+              34,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              48,
+              49,
+              45,
+              53,
+              53,
+              53,
+              45,
+              48,
+              49,
+              48,
+              50,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 35,
+          "responseSize": 129
+        },
+        "id": "8738b6ec-d50c-480a-a986-d993db491d29",
+        "assertions": [
+          {
+            "assertion": "Status is 201",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "User ID is generated",
+            "skipped": false
+          },
+          {
+            "assertion": "Created name matches",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "a0890eeb-7fdb-45ad-8bd1-9b7d62fe844f",
+          "length": 8,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "ae0318f6-b26f-4fae-acfc-53c870a96137"
+        },
+        "item": {
+          "id": "78f8316c-5446-439b-80c6-c121a70ef0fd",
+          "name": "02 Get all users",
+          "request": {
+            "description": {
+              "content": "List users after adding the test record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "5afbafc8-2027-4738-98c3-f176fc953d1d",
+              "name": "200 OK",
+              "originalRequest": {
+                "description": {
+                  "content": "List users after adding the test record.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "[{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"maya@example.com\",\"name\":\"Maya Haddad\",\"phone\":\"01-555-0101\",\"user_id\":1},{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0102\",\"user_id\":2}]\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "3519f5cd-94ba-4eb4-b0cd-3d7658448b72",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"Response is an array\", () => pm.expect(responseData).to.be.an(\"array\"));",
+                  "pm.test(\"New user is listed\", () => pm.expect(responseData.some(u => u.user_id === Number(pm.environment.get(\"user_id\")))).to.be.true);"
+                ],
+                "_lastExecutionId": "0832510b-2844-4a39-90b1-d59f09c39ab0"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "List users after adding the test record.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "13c8d675-e05d-4edf-8df2-ae761181ad9b",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "1420e9b4-0a79-4a07-b2c7-ad233a4a04e5",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "261"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              72,
+              97,
+              109,
+              114,
+              97,
+              44,
+              32,
+              66,
+              101,
+              105,
+              114,
+              117,
+              116,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              76,
+              101,
+              98,
+              97,
+              110,
+              111,
+              110,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              109,
+              97,
+              121,
+              97,
+              64,
+              101,
+              120,
+              97,
+              109,
+              112,
+              108,
+              101,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              77,
+              97,
+              121,
+              97,
+              32,
+              72,
+              97,
+              100,
+              100,
+              97,
+              100,
+              34,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              48,
+              49,
+              45,
+              53,
+              53,
+              53,
+              45,
+              48,
+              49,
+              48,
+              49,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              49,
+              125,
+              44,
+              123,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              72,
+              97,
+              109,
+              114,
+              97,
+              44,
+              32,
+              66,
+              101,
+              105,
+              114,
+              117,
+              116,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              76,
+              101,
+              98,
+              97,
+              110,
+              111,
+              110,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              111,
+              109,
+              97,
+              114,
+              64,
+              101,
+              120,
+              97,
+              109,
+              112,
+              108,
+              101,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              109,
+              97,
+              114,
+              32,
+              83,
+              97,
+              108,
+              101,
+              104,
+              34,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              48,
+              49,
+              45,
+              53,
+              53,
+              53,
+              45,
+              48,
+              49,
+              48,
+              50,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              125,
+              93,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 261
+        },
+        "id": "78f8316c-5446-439b-80c6-c121a70ef0fd",
+        "assertions": [
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is an array",
+            "skipped": false
+          },
+          {
+            "assertion": "New user is listed",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "cd629bc8-b7f8-499d-8595-db1be32d6636",
+          "length": 8,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "50a9f8e1-2844-44ff-a517-8c374112ed8c"
+        },
+        "item": {
+          "id": "f5937981-6947-4f64-9c81-3adbf3a7c63f",
+          "name": "03 Get one user",
+          "request": {
+            "description": {
+              "content": "Read the new user using the environment ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "{{user_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "7ca7e07c-7379-47c4-b80c-5141bce452f4",
+              "name": "200 OK",
+              "originalRequest": {
+                "description": {
+                  "content": "Read the new user using the environment ID.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users",
+                    "{{user_id}}"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0102\",\"user_id\":2}\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0030e715-715c-4a4f-8806-19144f1a54ac",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"Correct user returned\", () => pm.expect(responseData.user_id).to.eql(Number(pm.environment.get(\"user_id\"))));"
+                ],
+                "_lastExecutionId": "5aeb205f-b342-4871-a323-76208a2b0860"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Read the new user using the environment ID.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "6b70ebfb-fa67-49ea-aa9e-a78ec91de637",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "65f309fd-9226-4a16-a990-6112a0167668",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "129"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              72,
+              97,
+              109,
+              114,
+              97,
+              44,
+              32,
+              66,
+              101,
+              105,
+              114,
+              117,
+              116,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              76,
+              101,
+              98,
+              97,
+              110,
+              111,
+              110,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              111,
+              109,
+              97,
+              114,
+              64,
+              101,
+              120,
+              97,
+              109,
+              112,
+              108,
+              101,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              109,
+              97,
+              114,
+              32,
+              83,
+              97,
+              108,
+              101,
+              104,
+              34,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              48,
+              49,
+              45,
+              53,
+              53,
+              53,
+              45,
+              48,
+              49,
+              48,
+              50,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 129
+        },
+        "id": "f5937981-6947-4f64-9c81-3adbf3a7c63f",
+        "assertions": [
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Correct user returned",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "9de580e0-5ed9-4ab5-80bb-dc7f50c1e265",
+          "length": 8,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "d7c927f0-2cea-42d9-b019-9361acbd554b"
+        },
+        "item": {
+          "id": "e126734f-29e0-40fb-a675-f90655a9ceda",
+          "name": "04 Update user",
+          "request": {
+            "description": {
+              "content": "Update the phone number and address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "update"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0120\",\n  \"address\": \"Achrafieh, Beirut\",\n  \"country\": \"Lebanon\",\n  \"user_id\": {{user_id}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "47040966-58e9-4c64-9be4-f65bf9d50c6e",
+              "name": "200 OK",
+              "originalRequest": {
+                "description": {
+                  "content": "Update the phone number and address.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users",
+                    "update"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0120\",\n  \"address\": \"Achrafieh, Beirut\",\n  \"country\": \"Lebanon\",\n  \"user_id\": {{user_id}}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "{\"address\":\"Achrafieh, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0120\",\"user_id\":2}\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "b928a1cb-dfaf-4c1c-9d01-ff509d047755",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"Address updated\", () => pm.expect(responseData.address).to.eql(\"Achrafieh, Beirut\"));",
+                  "pm.test(\"Phone updated\", () => pm.expect(responseData.phone).to.eql(\"01-555-0120\"));"
+                ],
+                "_lastExecutionId": "1a369eb0-60e3-4364-9eaf-060eb544c49c"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Update the phone number and address.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users",
+              "update"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "e1b1eb2e-7e95-4778-b0b7-b8d4401eeede",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "157",
+              "system": true
+            }
+          ],
+          "method": "PUT",
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Omar Saleh\",\n  \"email\": \"omar@example.com\",\n  \"phone\": \"01-555-0120\",\n  \"address\": \"Achrafieh, Beirut\",\n  \"country\": \"Lebanon\",\n  \"user_id\": 2\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "8c6a765a-d87b-4fc1-b225-93d89ab979ec",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "133"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              65,
+              99,
+              104,
+              114,
+              97,
+              102,
+              105,
+              101,
+              104,
+              44,
+              32,
+              66,
+              101,
+              105,
+              114,
+              117,
+              116,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              76,
+              101,
+              98,
+              97,
+              110,
+              111,
+              110,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              111,
+              109,
+              97,
+              114,
+              64,
+              101,
+              120,
+              97,
+              109,
+              112,
+              108,
+              101,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              109,
+              97,
+              114,
+              32,
+              83,
+              97,
+              108,
+              101,
+              104,
+              34,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              48,
+              49,
+              45,
+              53,
+              53,
+              53,
+              45,
+              48,
+              49,
+              50,
+              48,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 3,
+          "responseSize": 133
+        },
+        "id": "e126734f-29e0-40fb-a675-f90655a9ceda",
+        "assertions": [
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Address updated",
+            "skipped": false
+          },
+          {
+            "assertion": "Phone updated",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "0e99a60b-cf18-4e8c-8189-277bd5930bec",
+          "length": 8,
+          "cycles": 1,
+          "position": 4,
+          "iteration": 0,
+          "httpRequestId": "8a3a70e6-4432-4f3e-a25b-aa73ede214c3"
+        },
+        "item": {
+          "id": "cd4f4539-d861-47bc-b491-26a002920d1d",
+          "name": "05 Check saved update",
+          "request": {
+            "description": {
+              "content": "Read again to verify the changes were saved in SQLite.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "{{user_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "ed247c9d-654c-4a07-8fde-b0e16b0a2bcf",
+              "name": "200 OK",
+              "originalRequest": {
+                "description": {
+                  "content": "Read again to verify the changes were saved in SQLite.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users",
+                    "{{user_id}}"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "{\"address\":\"Achrafieh, Beirut\",\"country\":\"Lebanon\",\"email\":\"omar@example.com\",\"name\":\"Omar Saleh\",\"phone\":\"01-555-0120\",\"user_id\":2}\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "b0556fb0-ef04-4158-9943-2233697a3fb7",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"Update persisted\", () => pm.expect(responseData.address).to.eql(\"Achrafieh, Beirut\"));"
+                ],
+                "_lastExecutionId": "b093f849-6f58-4d8d-8105-d17a917afb49"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Read again to verify the changes were saved in SQLite.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "d8a5fc7c-d887-459d-98f8-c01729fcc843",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "b0b3c8eb-fd2d-4e0e-bfa6-e3de12ab151c",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "133"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              65,
+              99,
+              104,
+              114,
+              97,
+              102,
+              105,
+              101,
+              104,
+              44,
+              32,
+              66,
+              101,
+              105,
+              114,
+              117,
+              116,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              76,
+              101,
+              98,
+              97,
+              110,
+              111,
+              110,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              111,
+              109,
+              97,
+              114,
+              64,
+              101,
+              120,
+              97,
+              109,
+              112,
+              108,
+              101,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              79,
+              109,
+              97,
+              114,
+              32,
+              83,
+              97,
+              108,
+              101,
+              104,
+              34,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              48,
+              49,
+              45,
+              53,
+              53,
+              53,
+              45,
+              48,
+              49,
+              50,
+              48,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              50,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 133
+        },
+        "id": "cd4f4539-d861-47bc-b491-26a002920d1d",
+        "assertions": [
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Update persisted",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "f2ccb607-b255-478d-8489-32de8a2789b0",
+          "length": 8,
+          "cycles": 1,
+          "position": 5,
+          "iteration": 0,
+          "httpRequestId": "1d9c315a-3da9-4a9b-95b4-df7cac73ff90"
+        },
+        "item": {
+          "id": "db19faf1-811c-4112-a126-daae1b0d9256",
+          "name": "06 Delete user",
+          "request": {
+            "description": {
+              "content": "Delete only the record created by this collection run.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "delete",
+                "{{user_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "55630387-31d0-499c-8857-084dbab16560",
+              "name": "200 OK",
+              "originalRequest": {
+                "description": {
+                  "content": "Delete only the record created by this collection run.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users",
+                    "delete",
+                    "{{user_id}}"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "DELETE"
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "{\"status\":\"User deleted successfully\"}\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "c5a37906-2730-4aba-93c3-89094d12c116",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"Deletion confirmed\", () => pm.expect(responseData.status).to.eql(\"User deleted successfully\"));"
+                ],
+                "_lastExecutionId": "47886973-1c6b-4600-b986-efe9f8231bea"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Delete only the record created by this collection run.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users",
+              "delete",
+              "2"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "bea8af06-28a6-42d5-9c21-dbe98657a0f4",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "DELETE"
+        },
+        "response": {
+          "id": "4337a433-73ed-46da-8ba3-45be99de6428",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "39"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              100,
+              101,
+              108,
+              101,
+              116,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 39
+        },
+        "id": "db19faf1-811c-4112-a126-daae1b0d9256",
+        "assertions": [
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Deletion confirmed",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "1bb31672-5fc4-485e-b818-4e321a6212c0",
+          "length": 8,
+          "cycles": 1,
+          "position": 6,
+          "iteration": 0,
+          "httpRequestId": "b2e2a7fa-2096-4975-8a77-3d9ae99c5e77"
+        },
+        "item": {
+          "id": "0fea7067-e222-4c98-a37f-a14639a83cb7",
+          "name": "07 Check deleted user",
+          "request": {
+            "description": {
+              "content": "Verify that the deleted record is no longer available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users",
+                "{{user_id}}"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "eaa5dd9b-fbd4-4fbe-b85a-747c1785364a",
+              "name": "404 NOT FOUND",
+              "originalRequest": {
+                "description": {
+                  "content": "Verify that the deleted record is no longer available.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users",
+                    "{{user_id}}"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "status": "NOT FOUND",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "{\"error\":\"User not found.\"}\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "17099896-8d37-44b4-8564-9827ba799c87",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"Missing user message\", () => pm.expect(responseData.error).to.eql(\"User not found.\"));"
+                ],
+                "_lastExecutionId": "36a0fbd2-ea61-4c9e-965b-ce2a4375f99d"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Verify that the deleted record is no longer available.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users",
+              "2"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "51ee5499-739e-4f24-9bd9-35d2913cede7",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "dccda383-13b6-4c62-8054-8b180431e18f",
+          "status": "NOT FOUND",
+          "code": 404,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "28"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              115,
+              101,
+              114,
+              32,
+              110,
+              111,
+              116,
+              32,
+              102,
+              111,
+              117,
+              110,
+              100,
+              46,
+              34,
+              125,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 28
+        },
+        "id": "0fea7067-e222-4c98-a37f-a14639a83cb7",
+        "assertions": [
+          {
+            "assertion": "Status is 404",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Missing user message",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "808eddc4-f43c-40c9-ae96-0ebecab17031",
+          "length": 8,
+          "cycles": 1,
+          "position": 7,
+          "iteration": 0,
+          "httpRequestId": "1f5bd15a-71d3-4245-bda1-0aba7b93bfcf"
+        },
+        "item": {
+          "id": "b031931c-e863-493e-8fea-56e3d5e5ad4b",
+          "name": "08 Get users after deletion",
+          "request": {
+            "description": {
+              "content": "Confirm that the deleted ID is absent and other records remain.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "users"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [
+            {
+              "_": {
+                "postman_previewlanguage": "json"
+              },
+              "id": "e5471153-ca65-47e4-9d6e-49f4ee34f796",
+              "name": "200 OK",
+              "originalRequest": {
+                "description": {
+                  "content": "Confirm that the deleted ID is absent and other records remain.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "api",
+                    "users"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "body": "[{\"address\":\"Hamra, Beirut\",\"country\":\"Lebanon\",\"email\":\"maya@example.com\",\"name\":\"Maya Haddad\",\"phone\":\"01-555-0101\",\"user_id\":1}]\n",
+              "cookie": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "45b3c16d-122c-4196-8f6e-aa60652ec5b9",
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Response is JSON\", () => pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\"));",
+                  "const responseData = pm.response.json();",
+                  "pm.test(\"Deleted user is absent\", () => pm.expect(responseData.some(u => u.user_id === Number(pm.environment.get(\"user_id\")))).to.be.false);"
+                ],
+                "_lastExecutionId": "d5d99261-7e4a-4c0d-8792-fc9a58e66e84"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "Confirm that the deleted ID is absent and other records remain.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "http",
+            "port": "5001",
+            "path": [
+              "api",
+              "users"
+            ],
+            "host": [
+              "127",
+              "0",
+              "0",
+              "1"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "d23a3a75-2cb1-45bf-9f43-178648134bf1",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "127.0.0.1:5001",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "402850ec-6f4c-47b5-8f07-b0eae7d98384",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Server",
+              "value": "Werkzeug/3.1.9 Python/3.14.3"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 15 Oct 2026 20:49:41 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "132"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              91,
+              123,
+              34,
+              97,
+              100,
+              100,
+              114,
+              101,
+              115,
+              115,
+              34,
+              58,
+              34,
+              72,
+              97,
+              109,
+              114,
+              97,
+              44,
+              32,
+              66,
+              101,
+              105,
+              114,
+              117,
+              116,
+              34,
+              44,
+              34,
+              99,
+              111,
+              117,
+              110,
+              116,
+              114,
+              121,
+              34,
+              58,
+              34,
+              76,
+              101,
+              98,
+              97,
+              110,
+              111,
+              110,
+              34,
+              44,
+              34,
+              101,
+              109,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              109,
+              97,
+              121,
+              97,
+              64,
+              101,
+              120,
+              97,
+              109,
+              112,
+              108,
+              101,
+              46,
+              99,
+              111,
+              109,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              77,
+              97,
+              121,
+              97,
+              32,
+              72,
+              97,
+              100,
+              100,
+              97,
+              100,
+              34,
+              44,
+              34,
+              112,
+              104,
+              111,
+              110,
+              101,
+              34,
+              58,
+              34,
+              48,
+              49,
+              45,
+              53,
+              53,
+              53,
+              45,
+              48,
+              49,
+              48,
+              49,
+              34,
+              44,
+              34,
+              117,
+              115,
+              101,
+              114,
+              95,
+              105,
+              100,
+              34,
+              58,
+              49,
+              125,
+              93,
+              10
+            ]
+          },
+          "cookie": [],
+          "responseTime": 2,
+          "responseSize": 132
+        },
+        "id": "b031931c-e863-493e-8fea-56e3d5e5ad4b",
+        "assertions": [
+          {
+            "assertion": "Status is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "Response is JSON",
+            "skipped": false
+          },
+          {
+            "assertion": "Deleted user is absent",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 984
+    },
+    "failures": [],
+    "error": null
+  }
+}

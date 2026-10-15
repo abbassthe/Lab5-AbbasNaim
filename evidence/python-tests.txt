@@ -1,0 +1,12 @@
+test_bad_json_and_content_type (test_api.UserApiTests.test_bad_json_and_content_type) ... ok
+test_complete_crud (test_api.UserApiTests.test_complete_crud) ... ok
+test_cors_and_method_handling (test_api.UserApiTests.test_cors_and_method_handling) ... ok
+test_missing_records (test_api.UserApiTests.test_missing_records) ... ok
+test_required_fields (test_api.UserApiTests.test_required_fields) ... ok
+test_sql_values_and_persistence (test_api.UserApiTests.test_sql_values_and_persistence) ... ok
+test_update_rejects_bad_ids_without_changes (test_api.UserApiTests.test_update_rejects_bad_ids_without_changes) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.059s
+
+OK

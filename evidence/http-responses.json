@@ -1,0 +1,137 @@
+[
+  {
+    "request": "01 Add user",
+    "method": "POST",
+    "url": "http://127.0.0.1:5001/api/users/add",
+    "body": {
+      "name": "Omar Saleh",
+      "email": "omar@example.com",
+      "phone": "01-555-0102",
+      "address": "Hamra, Beirut",
+      "country": "Lebanon"
+    },
+    "status": 201,
+    "response": {
+      "address": "Hamra, Beirut",
+      "country": "Lebanon",
+      "email": "omar@example.com",
+      "name": "Omar Saleh",
+      "phone": "01-555-0102",
+      "user_id": 2
+    }
+  },
+  {
+    "request": "02 Get all users",
+    "method": "GET",
+    "url": "http://127.0.0.1:5001/api/users",
+    "body": null,
+    "status": 200,
+    "response": [
+      {
+        "address": "Hamra, Beirut",
+        "country": "Lebanon",
+        "email": "maya@example.com",
+        "name": "Maya Haddad",
+        "phone": "01-555-0101",
+        "user_id": 1
+      },
+      {
+        "address": "Hamra, Beirut",
+        "country": "Lebanon",
+        "email": "omar@example.com",
+        "name": "Omar Saleh",
+        "phone": "01-555-0102",
+        "user_id": 2
+      }
+    ]
+  },
+  {
+    "request": "03 Get one user",
+    "method": "GET",
+    "url": "http://127.0.0.1:5001/api/users/2",
+    "body": null,
+    "status": 200,
+    "response": {
+      "address": "Hamra, Beirut",
+      "country": "Lebanon",
+      "email": "omar@example.com",
+      "name": "Omar Saleh",
+      "phone": "01-555-0102",
+      "user_id": 2
+    }
+  },
+  {
+    "request": "04 Update user",
+    "method": "PUT",
+    "url": "http://127.0.0.1:5001/api/users/update",
+    "body": {
+      "name": "Omar Saleh",
+      "email": "omar@example.com",
+      "phone": "01-555-0120",
+      "address": "Achrafieh, Beirut",
+      "country": "Lebanon",
+      "user_id": 2
+    },
+    "status": 200,
+    "response": {
+      "address": "Achrafieh, Beirut",
+      "country": "Lebanon",
+      "email": "omar@example.com",
+      "name": "Omar Saleh",
+      "phone": "01-555-0120",
+      "user_id": 2
+    }
+  },
+  {
+    "request": "05 Check saved update",
+    "method": "GET",
+    "url": "http://127.0.0.1:5001/api/users/2",
+    "body": null,
+    "status": 200,
+    "response": {
+      "address": "Achrafieh, Beirut",
+      "country": "Lebanon",
+      "email": "omar@example.com",
+      "name": "Omar Saleh",
+      "phone": "01-555-0120",
+      "user_id": 2
+    }
+  },
+  {
+    "request": "06 Delete user",
+    "method": "DELETE",
+    "url": "http://127.0.0.1:5001/api/users/delete/2",
+    "body": null,
+    "status": 200,
+    "response": {
+      "status": "User deleted successfully"
+    }
+  },
+  {
+    "request": "07 Check deleted user",
+    "method": "GET",
+    "url": "http://127.0.0.1:5001/api/users/2",
+    "body": null,
+    "status": 404,
+    "response": {
+      "error": "User not found."
+    }
+  },
+  {
+    "request": "08 Get users after deletion",
+    "method": "GET",
+    "url": "http://127.0.0.1:5001/api/users",
+    "body": null,
+    "status": 200,
+    "response": [
+      {
+        "address": "Hamra, Beirut",
+        "country": "Lebanon",
+        "email": "maya@example.com",
+        "name": "Maya Haddad",
+        "phone": "01-555-0101",
+        "user_id": 1
+      }
+    ]
+  }
+]

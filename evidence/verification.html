@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Lab 5 verification — Abbas Naim</title><style>body{font:17px/1.5 Arial,sans-serif;margin:48px;max-width:1100px;color:#202020}h1{font-size:30px}table{border-collapse:collapse;width:100%;margin:20px 0}th,td{border:1px solid #ccc;padding:10px;text-align:left}th{background:#eee}pre{background:#f4f4f4;padding:20px;white-space:pre-wrap}small{color:#555}</style><h1>Lab 5 — Collection verification</h1><p>Abbas Naim · Flask user app · 15 October 2026</p><p><strong>8 requests · 27 assertions · 0 failures</strong></p><p>Results from Newman running the supplied collection against the local Flask server.</p><table><tr><th>Request</th><th>Method</th><th>HTTP status</th><th>Assertions</th></tr><tr><td>01 Add user</td><td>POST</td><td>201</td><td>4 passed</td></tr><tr><td>02 Get all users</td><td>GET</td><td>200</td><td>4 passed</td></tr><tr><td>03 Get one user</td><td>GET</td><td>200</td><td>3 passed</td></tr><tr><td>04 Update user</td><td>PUT</td><td>200</td><td>4 passed</td></tr><tr><td>05 Check saved update</td><td>GET</td><td>200</td><td>3 passed</td></tr><tr><td>06 Delete user</td><td>DELETE</td><td>200</td><td>3 passed</td></tr><tr><td>07 Check deleted user</td><td>GET</td><td>404</td><td>3 passed</td></tr><tr><td>08 Get users after deletion</td><td>GET</td><td>200</td><td>3 passed</td></tr></table><h2>Environment: Flask local</h2><pre>[
+  {
+    &quot;key&quot;: &quot;base_url&quot;,
+    &quot;value&quot;: &quot;http://127.0.0.1:5001&quot;,
+    &quot;type&quot;: &quot;default&quot;,
+    &quot;enabled&quot;: true
+  },
+  {
+    &quot;key&quot;: &quot;user_id&quot;,
+    &quot;value&quot;: &quot;2&quot;,
+    &quot;type&quot;: &quot;default&quot;,
+    &quot;enabled&quot;: true
+  }
+]</pre><p>All eight requests have a saved response example. All request URLs use {{base_url}}.</p><small>Source: newman-results.json and the supplied Postman JSON files. This is a verification report, not a Postman UI screenshot.</small></html>

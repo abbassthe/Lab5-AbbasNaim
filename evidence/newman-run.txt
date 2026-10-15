@@ -1,0 +1,74 @@
+newman
+
+Flask user app
+
+→ 01 Add user
+  POST http://127.0.0.1:5001/api/users/add [201 CREATED, 332B, 35ms]
+  ✓  Status is 201
+  ✓  Response is JSON
+  ✓  User ID is generated
+  ✓  Created name matches
+
+→ 02 Get all users
+  GET http://127.0.0.1:5001/api/users [200 OK, 459B, 3ms]
+  ✓  Status is 200
+  ✓  Response is JSON
+  ✓  Response is an array
+  ✓  New user is listed
+
+→ 03 Get one user
+  GET http://127.0.0.1:5001/api/users/2 [200 OK, 327B, 3ms]
+  ✓  Status is 200
+  ✓  Response is JSON
+  ✓  Correct user returned
+
+→ 04 Update user
+  PUT http://127.0.0.1:5001/api/users/update [200 OK, 331B, 3ms]
+  ✓  Status is 200
+  ✓  Response is JSON
+  ✓  Address updated
+  ✓  Phone updated
+
+→ 05 Check saved update
+  GET http://127.0.0.1:5001/api/users/2 [200 OK, 331B, 2ms]
+  ✓  Status is 200
+  ✓  Response is JSON
+  ✓  Update persisted
+
+→ 06 Delete user
+  DELETE http://127.0.0.1:5001/api/users/delete/2 [200 OK, 236B, 2ms]
+  ✓  Status is 200
+  ✓  Response is JSON
+  ✓  Deletion confirmed
+
+→ 07 Check deleted user
+  GET http://127.0.0.1:5001/api/users/2 [404 NOT FOUND, 232B, 2ms]
+  ✓  Status is 404
+  ✓  Response is JSON
+  ✓  Missing user message
+
+→ 08 Get users after deletion
+  GET http://127.0.0.1:5001/api/users [200 OK, 330B, 2ms]
+  ✓  Status is 200
+  ✓  Response is JSON
+  ✓  Deleted user is absent
+
+┌─────────────────────────┬──────────────────┬─────────────────┐
+│                         │         executed │          failed │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              iterations │                1 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│                requests │                8 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│            test-scripts │                8 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│      prerequest-scripts │                0 │               0 │
+├─────────────────────────┼──────────────────┼─────────────────┤
+│              assertions │               27 │               0 │
+├─────────────────────────┴──────────────────┴─────────────────┤
+│ total run duration: 157ms                                    │
+├──────────────────────────────────────────────────────────────┤
+│ total data received: 984B (approx)                           │
+├──────────────────────────────────────────────────────────────┤
+│ average response time: 6ms [min: 2ms, max: 35ms, s.d.: 10ms] │
+└──────────────────────────────────────────────────────────────┘

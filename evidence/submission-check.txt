@@ -1,0 +1,7 @@
+Collection: Flask user app
+8 requests, each with a saved example
+All request URLs use the base_url environment variable
+Newman: 8 requests, 27 assertions, 0 failures
+Python: 7 tests passed
+9 screenshots embedded in the report
+SQLite integrity: ok; one fictional sample user remains

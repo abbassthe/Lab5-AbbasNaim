@@ -1,0 +1,5 @@
+*   2ee37d4 (HEAD -> main) Merge tested REST API into main
+|\  
+| * d46a4d9 (feature/rest-api) Add and test Flask REST endpoints on API branch
+|/  
+* 8f716b7 (origin/main, origin/HEAD) Create SQLite user table and CRUD operations
