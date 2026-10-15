@@ -1,4 +1,5 @@
-*   2ee37d4 (HEAD -> main) Merge tested REST API into main
+* ca07209 (HEAD -> main) Add Postman collection, response examples and lab report
+*   2ee37d4 Merge tested REST API into main
 |\  
 | * d46a4d9 (feature/rest-api) Add and test Flask REST endpoints on API branch
 |/  
